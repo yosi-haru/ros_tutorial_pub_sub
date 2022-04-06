@@ -1,5 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include <time.h>
 
 #include <sstream>
 
@@ -64,7 +65,10 @@ int main(int argc, char **argv)
     ss << "hello world " << count;
     msg.data = ss.str();
 
+    auto t1=ros::WallTime::now();
     ROS_INFO("%s", msg.data.c_str());
+    auto t2=ros::WallTime::now();
+    ROS_INFO("publish_rate:%f",(t2-t1).toSec());
 
     /**
      * The publish() function is how you send messages. The parameter
